@@ -1,5 +1,6 @@
 package ngordnet.main;
 
+import ngordnet.hyponyms.*;
 import ngordnet.browser.NgordnetQuery;
 import ngordnet.browser.NgordnetQueryHandler;
 import ngordnet.ngrams.NGramMap;
@@ -9,10 +10,10 @@ import spark.Response;
 
 public class HyponymsHandler extends NgordnetQueryHandler {
 
-        private NGramMap ngm;
+        private HyponymMap hm;
 
-        public HyponymsHandler(NGramMap n) {
-            ngm = n;
+        public HyponymsHandler(HyponymMap h) {
+            hm = h;
         }
 
         @Override
