@@ -1,5 +1,7 @@
 package ngordnet.hyponyms;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
@@ -35,17 +37,37 @@ public class DirectedGraph {
     }
 
     public void addEdge(int a, int b) {
+
         if (!ids.contains(a) || !ids.contains(b)) {
             return;
         }
         lst.get(a).addChild(lst.get(b));
+
     }
 
-    public ArrayList<Node> getAllChildren(int id) {
+    public ArrayList<Integer> getChildren(int id) {
+
         if (!ids.contains(id)) {
             return new ArrayList<>();
         }
-        return lst.get(id).children;
+        ArrayList<Integer> tr = getAllChildren(lst.get(id));
+        return tr;
+
+    }
+
+    private ArrayList<Integer> getAllChildren(Node n) {
+
+        ArrayList<Integer> vals = new ArrayList<>();
+        vals.add(n.id);
+        if (n.children.isEmpty()) {
+            return vals;
+        } else {
+            for (Node c : n.children) {
+                vals.addAll(getAllChildren(c));
+            }
+            return vals;
+        }
+
     }
 
 }
