@@ -22,7 +22,15 @@ public class HyponymMap {
             wordIDs.put(id, words);
         }
         synsets = new DirectedGraph(wordIDs.keySet());
-        // read the synsets into the graph
+        while (syns.hasNextLine()) {
+            if (syns.isEmpty()) {
+                break;
+            }
+            String[] arr = syns.readString().split(",");
+            for (int i = 1; i < arr.length; i++) {
+                synsets.addEdge(Integer.valueOf(arr[0]), Integer.valueOf(arr[i]));
+            }
+        }
     }
 
 }
