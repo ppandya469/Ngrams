@@ -13,8 +13,9 @@ public class HyponymMap {
     private TreeMap<String, Integer> revIDs;
 
     public HyponymMap(String synFile, String hypFile) {
-        revIDs = new WordNet(synFile, hypFile).hyponymDataReaderRevs();
-        wordIDs = new WordNet(synFile, hypFile).hyponymDataReaderWord();
+        WordNet wn = new WordNet(synFile, hypFile);
+        revIDs = wn.hyponymDataReaderRevs();
+        wordIDs = wn.hyponymDataReaderWord();
     }
 
     public ArrayList<String> hyponyms(String word) {
