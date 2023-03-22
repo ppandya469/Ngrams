@@ -1,5 +1,6 @@
 package ngordnet.proj2b_testing;
 
+import ngordnet.hyponyms.HyponymMap;
 import ngordnet.browser.NgordnetQuery;
 import ngordnet.browser.NgordnetQueryHandler;
 import org.junit.jupiter.api.Test;
@@ -29,4 +30,10 @@ public class TestOneWordK0Hyponyms {
     }
 
     // TODO: Add more unit tests (including edge case tests) here.
+
+    @Test
+    public void hyponymMapTestBasic() {
+        HyponymMap hm = new HyponymMap("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
+        assertThat(hm).isNotNull();
+    }
 }

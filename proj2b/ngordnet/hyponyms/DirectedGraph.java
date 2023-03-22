@@ -5,6 +5,7 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.LinkedList;
 
 public class DirectedGraph {
 
@@ -46,7 +47,6 @@ public class DirectedGraph {
     }
 
     public ArrayList<Integer> getChildren(int id) {
-
         if (!ids.contains(id)) {
             return new ArrayList<>();
         }
@@ -56,7 +56,6 @@ public class DirectedGraph {
     }
 
     private ArrayList<Integer> getAllChildren(Node n) {
-
         ArrayList<Integer> vals = new ArrayList<>();
         vals.add(n.id);
         if (n.children.isEmpty()) {

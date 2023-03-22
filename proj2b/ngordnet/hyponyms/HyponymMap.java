@@ -2,7 +2,6 @@ package ngordnet.hyponyms;
 
 import edu.princeton.cs.algs4.In;
 import org.checkerframework.checker.units.qual.A;
-
 import java.util.TreeMap;
 import java.util.ArrayList;
 import ngordnet.hyponyms.WordNet;
@@ -28,4 +27,12 @@ public class HyponymMap {
         }
         return tr;
     }
+
+    /*public String lookUp(String word) {
+        int id = revIDs.get(word);
+        ArrayList<Integer> children = synsets.getChildren(id);
+
+
+        return;
+    }*/
 }
