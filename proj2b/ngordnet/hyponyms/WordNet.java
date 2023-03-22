@@ -44,7 +44,9 @@ public class WordNet {
             }
             String[] arr = syns.readString().split(",");
             for (int i = 1; i < arr.length; i++) {
-                synsets.addEdge(Integer.valueOf(arr[0]), Integer.valueOf(arr[i]));
+                if (revIDs.get(arr[i]) != null) {
+                    synsets.addEdge(Integer.valueOf(arr[0]), revIDs.get(arr[i]));
+                }
             }
         }
         return wordIDs;
@@ -75,7 +77,9 @@ public class WordNet {
             }
             String[] arr = syns.readString().split(",");
             for (int i = 1; i < arr.length; i++) {
-                synsets.addEdge(Integer.valueOf(arr[0]), revIDs.get(arr[i]));
+                if (revIDs.get(arr[i]) != null) {
+                    synsets.addEdge(Integer.valueOf(arr[0]), revIDs.get(arr[i]));
+                }
             }
         }
         return revIDs;
