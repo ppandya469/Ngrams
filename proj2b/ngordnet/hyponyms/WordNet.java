@@ -13,8 +13,8 @@ public class WordNet {
     private In hyps;
 
     public WordNet(String synFile, String hypFile) {
-        syns = new In(synFile);
-        hyps = new In(hypFile);
+        hyps = new In(synFile);
+        syns = new In(hypFile);
         wordIDs = new TreeMap<>();
         revIDs = new TreeMap<>();
 
@@ -29,9 +29,9 @@ public class WordNet {
                 String[] stArr = words.split(" ");
                 words = "";
                 for (int i = 0; i < stArr.length - 1; i++) {
-                    words.concat(stArr[i] + ", ");
+                    words += (stArr[i] + ", ");
                 }
-                words.concat(stArr[stArr.length - 1]);
+                words += (stArr[stArr.length - 1]);
             }
             wordIDs.put(id, words);
             revIDs.put(words, id);
@@ -41,7 +41,7 @@ public class WordNet {
             if (syns.isEmpty()) {
                 break;
             }
-            String[] arr = syns.readString().split(",");
+            String[] arr = syns.readLine().split(",");
             for (int i = 1; i < arr.length; i++) {
                 if (revIDs.get(arr[i]) != null) {
                     synsets.addEdge(Integer.valueOf(arr[0]), revIDs.get(arr[i]));
