@@ -32,8 +32,9 @@ public class TestOneWordK0Hyponyms {
     // TODO: Add more unit tests (including edge case tests) here.
 
     @Test
-    public void hyponymMapTestBasic() {
+    public void wordNetTestBasic() {
         WordNet wN = new WordNet("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
+
         assertThat(wN).isNotNull();
     }
 }

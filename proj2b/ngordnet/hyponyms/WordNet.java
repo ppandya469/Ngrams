@@ -67,6 +67,5 @@ public class WordNet {
         int id = revIDs.get(word);
         ArrayList<String> tr = synsets.getChildren(id);
         return tr;
-
     }
 }
