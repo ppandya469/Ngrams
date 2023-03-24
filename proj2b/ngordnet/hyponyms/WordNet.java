@@ -62,11 +62,16 @@ public class WordNet {
         return synsets;
     }
 
-    public ArrayList<String> hyponyms(String word) {
+    public String hyponyms(String word) {
 
         int id = revIDs.get(word);
-        ArrayList<String> tr = synsets.getChildren(id);
-        return tr;
+        ArrayList<String> h = synsets.getChildren(id);
+        String tr = "[";
+        for (int i = 0; i < h.size() - 1; i++) {
+            tr += (h.get(i) + ", ");
+        }
+        tr += (h.get(h.size() - 1));
+        return tr + "]";
 
     }
 }

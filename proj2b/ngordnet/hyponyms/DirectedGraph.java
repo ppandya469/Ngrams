@@ -48,6 +48,7 @@ public class DirectedGraph {
     }
 
     public ArrayList<String> getChildren(int id) {
+
         if (!ids.contains(id)) {
             return new ArrayList<>();
         }
@@ -57,6 +58,7 @@ public class DirectedGraph {
     }
 
     private ArrayList<String> getAllChildren(Node n) {
+
         ArrayList<String> vals = new ArrayList<>();
         vals.add(n.id);
         if (n.children.isEmpty()) {
