@@ -16,17 +16,15 @@ public class HyponymMap {
         WordNet wn = new WordNet(synFile, hypFile);
         revIDs = wn.hyponymDataReaderRevs();
         wordIDs = wn.hyponymDataReaderWord();
+        synsets = wn.sys();
     }
 
     public ArrayList<String> hyponyms(String word) {
 
         int id = revIDs.get(word);
-        ArrayList<Integer> hs = synsets.getChildren(id);
-        ArrayList<String> tr = new ArrayList<>();
-        for (int i : hs) {
-            tr.add(wordIDs.get(i));
-        }
+        ArrayList<String> tr = synsets.getChildren(id);
         return tr;
+
     }
 
     /*public String lookUp(String word) {

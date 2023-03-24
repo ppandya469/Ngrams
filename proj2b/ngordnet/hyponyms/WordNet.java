@@ -36,7 +36,7 @@ public class WordNet {
             wordIDs.put(id, words);
             revIDs.put(words, id);
         }
-        synsets = new DirectedGraph(wordIDs.keySet());
+        synsets = new DirectedGraph(wordIDs);
         while (syns.hasNextLine()) {
             if (syns.isEmpty()) {
                 break;
@@ -56,5 +56,9 @@ public class WordNet {
 
     public TreeMap<String, Integer> hyponymDataReaderRevs() {
         return revIDs;
+    }
+
+    public DirectedGraph sys() {
+        return synsets;
     }
 }
