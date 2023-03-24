@@ -8,6 +8,8 @@ import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 
+import java.util.List;
+
 public class HyponymsHandler extends NgordnetQueryHandler {
 
         private HyponymMap hm;
@@ -18,7 +20,8 @@ public class HyponymsHandler extends NgordnetQueryHandler {
 
         @Override
         public String handle(NgordnetQuery q) {
-            return "Hello!";
+            List<String> words = q.words();
+            String word = words.get(0);
+            return hm.hyponyms();
         }
-
 }
