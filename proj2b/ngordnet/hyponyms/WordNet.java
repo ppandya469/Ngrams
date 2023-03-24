@@ -65,8 +65,6 @@ public class WordNet {
     public String hyponyms(String word) {
 
         int id = revIDs.get(word);
-        ArrayList<String> tr = synsets.getChildren(id);
-        return tr;
         ArrayList<String> h = synsets.getChildren(id);
         String tr = "[";
         for (int i = 0; i < h.size() - 1; i++) {

@@ -25,5 +25,5 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             String w = words.get(0);
             return wN.hyponyms(w);
         }
-        
+
 }
