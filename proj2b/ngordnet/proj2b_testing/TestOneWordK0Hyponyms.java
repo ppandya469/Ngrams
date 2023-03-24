@@ -2,6 +2,7 @@ package ngordnet.proj2b_testing;
 
 import ngordnet.browser.NgordnetQuery;
 import ngordnet.browser.NgordnetQueryHandler;
+import ngordnet.hyponyms.WordNet;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class TestOneWordK0Hyponyms {
 
     @Test
     public void hyponymMapTestBasic() {
-        HyponymMap hm = new HyponymMap("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
-        assertThat(hm).isNotNull();
+        WordNet wN = new WordNet("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
+        assertThat(wN).isNotNull();
     }
 }
