@@ -1,11 +1,12 @@
 package ngordnet.hyponyms;
 
 import org.checkerframework.checker.units.qual.A;
+import org.reflections.vfs.Vfs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.LinkedList;
 
 public class DirectedGraph {
 
@@ -14,10 +15,10 @@ public class DirectedGraph {
 
     private class Node {
 
-        private int id;
-        private ArrayList<Node> children;
+        private String id;
+        private ArrayList<Node> children = new ArrayList<>();
 
-        private Node(int i) {
+        private Node(String i) {
             id = i;
         }
 
@@ -27,13 +28,13 @@ public class DirectedGraph {
 
     }
 
-    public DirectedGraph(Set<Integer> i) {
+    public DirectedGraph(TreeMap<Integer, String> i) {
 
         lst = new TreeMap<>();
-        for (int id : i) {
-            lst.put(id, new Node(id));
+        for (int id : i.keySet()) {
+            lst.put(id, new Node(i.get(id)));
         }
-        ids = i;
+        ids = i.keySet();
 
     }
 
@@ -46,17 +47,17 @@ public class DirectedGraph {
 
     }
 
-    public ArrayList<Integer> getChildren(int id) {
+    public ArrayList<String> getChildren(int id) {
         if (!ids.contains(id)) {
             return new ArrayList<>();
         }
-        ArrayList<Integer> tr = getAllChildren(lst.get(id));
+        ArrayList<String> tr = getAllChildren(lst.get(id));
         return tr;
 
     }
 
-    private ArrayList<Integer> getAllChildren(Node n) {
-        ArrayList<Integer> vals = new ArrayList<>();
+    private ArrayList<String> getAllChildren(Node n) {
+        ArrayList<String> vals = new ArrayList<>();
         vals.add(n.id);
         if (n.children.isEmpty()) {
             return vals;
