@@ -21,9 +21,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
 
         @Override
         public String handle(NgordnetQuery q) {
-            List<String> words = q.words();
-            String w = words.get(0);
-            return wN.hyponyms(w);
+            return wN.hyponyms(q.words());
         }
 
 }

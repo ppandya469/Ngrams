@@ -3,18 +3,17 @@ package ngordnet.hyponyms;
 import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class WordNet {
     private DirectedGraph synsets;
     private TreeMap<Integer, String> wordIDs;
     private TreeMap<String, Integer> revIDs;
-    private In syns;
-    private In hyps;
 
     public WordNet(String synFile, String hypFile) {
-        hyps = new In(synFile);
-        syns = new In(hypFile);
+        In hyps = new In(synFile);
+        In syns = new In(hypFile);
         wordIDs = new TreeMap<>();
         revIDs = new TreeMap<>();
 
@@ -50,22 +49,19 @@ public class WordNet {
         }
     }
 
-    public TreeMap<Integer, String> hyponymDataReaderWord() {
-        return wordIDs;
-    }
+    public String hyponyms(List<String> words) {
 
-    public TreeMap<String, Integer> hyponymDataReaderRevs() {
-        return revIDs;
-    }
-
-    public DirectedGraph sys() {
-        return synsets;
-    }
-
-    public String hyponyms(String word) {
-
-        int id = revIDs.get(word);
+        int id = revIDs.get(words.get(0));
         ArrayList<String> h = synsets.getChildren(id);
+        for (int i = 1; i < words.size(); i++) {
+            int d = revIDs.get(words.get(i));
+            ArrayList<String> temp = synsets.getChildren(id);
+            for (String word : temp) {
+                if (!h.contains(word)) {
+                    h.remove(word);
+                }
+            }
+        }
         String tr = "[";
         for (int i = 0; i < h.size() - 1; i++) {
             tr += (h.get(i) + ", ");
@@ -73,5 +69,5 @@ public class WordNet {
         tr += (h.get(h.size() - 1));
         return tr + "]";
     }
-    
+
 }
