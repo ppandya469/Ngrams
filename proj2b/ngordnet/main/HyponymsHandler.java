@@ -14,14 +14,16 @@ import java.util.List;
 public class HyponymsHandler extends NgordnetQueryHandler {
 
         private WordNet wN;
+        private NGramMap ng;
 
-        public HyponymsHandler(WordNet h) {
+        public HyponymsHandler(WordNet h, NGramMap n) {
             wN = h;
+            ng = n;
         }
 
         @Override
         public String handle(NgordnetQuery q) {
-            return wN.hyponyms(q.words());
+            return wN.hyponyms(q.words(), q.k(), ng);
         }
 
 }

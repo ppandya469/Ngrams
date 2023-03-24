@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import ngordnet.ngrams.*;
+
 public class WordNet {
     private DirectedGraph synsets;
     private TreeMap<Integer, String> wordIDs;
     private TreeMap<String, Integer> revIDs;
 
+    // reads data into two maps (each the reverse of each other) and a directed graph.
     public WordNet(String synFile, String hypFile) {
         In hyps = new In(synFile);
         In syns = new In(hypFile);
@@ -49,10 +52,14 @@ public class WordNet {
         }
     }
 
-    public String hyponyms(List<String> words) {
+    // gets hyponyms of words
+    public String hyponyms(List<String> words, int k, NGramMap n) {
 
+        // gets hyponyms of first word
         int id = revIDs.get(words.get(0));
         ArrayList<String> h = synsets.getChildren(id);
+
+        // removes hyponyms that are not also hyponyms of all other words
         for (int i = 1; i < words.size(); i++) {
             int d = revIDs.get(words.get(i));
             ArrayList<String> temp = synsets.getChildren(id);
@@ -62,12 +69,20 @@ public class WordNet {
                 }
             }
         }
+
+        // k != 0 case
+        /* if (k != 0) {
+
+        } */
+
+        // converts list of hyponyms to string
         String tr = "[";
         for (int i = 0; i < h.size() - 1; i++) {
             tr += (h.get(i) + ", ");
         }
         tr += (h.get(h.size() - 1));
         return tr + "]";
+
     }
 
 }

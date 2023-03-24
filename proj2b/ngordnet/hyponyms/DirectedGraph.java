@@ -12,7 +12,6 @@ public class DirectedGraph {
 
     private TreeMap<Integer, Node> lst;
     private Set<Integer> ids;
-
     private class Node {
 
         private String id;
@@ -28,6 +27,8 @@ public class DirectedGraph {
 
     }
 
+    // turns the map between Integer and String into a map between Integer and node with id String and empty children
+    // takes the set of Integers
     public DirectedGraph(TreeMap<Integer, String> i) {
 
         lst = new TreeMap<>();
@@ -38,6 +39,7 @@ public class DirectedGraph {
 
     }
 
+    // adds an edge from a pointing at b
     public void addEdge(int a, int b) {
 
         if (!ids.contains(a) || !ids.contains(b)) {
@@ -47,6 +49,7 @@ public class DirectedGraph {
 
     }
 
+    // get self and all children of id
     public ArrayList<String> getChildren(int id) {
 
         if (!ids.contains(id)) {
@@ -57,6 +60,7 @@ public class DirectedGraph {
 
     }
 
+    // recursive method, prevents naked recursion. Performs a DFS and adds all children to the list.
     private ArrayList<String> getAllChildren(Node n) {
 
         ArrayList<String> vals = new ArrayList<>();
