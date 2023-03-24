@@ -61,4 +61,12 @@ public class WordNet {
     public DirectedGraph sys() {
         return synsets;
     }
+
+    public ArrayList<String> hyponyms(String word) {
+
+        int id = revIDs.get(word);
+        ArrayList<String> tr = synsets.getChildren(id);
+        return tr;
+
+    }
 }

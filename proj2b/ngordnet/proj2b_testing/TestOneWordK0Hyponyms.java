@@ -1,6 +1,5 @@
 package ngordnet.proj2b_testing;
 
-import ngordnet.hyponyms.HyponymMap;
 import ngordnet.browser.NgordnetQuery;
 import ngordnet.browser.NgordnetQueryHandler;
 import org.junit.jupiter.api.Test;

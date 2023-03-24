@@ -1,7 +1,6 @@
 package ngordnet.main;
 
 import ngordnet.browser.NgordnetServer;
-import ngordnet.hyponyms.HyponymMap;
 import ngordnet.ngrams.NGramMap;
 
 public class Main {
