@@ -1,10 +1,10 @@
 package ngordnet.hyponyms;
 
-import org.checkerframework.checker.units.qual.A;
-import org.reflections.vfs.Vfs;
+//import org.checkerframework.checker.units.qual.A;
+//import org.reflections.vfs.Vfs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
 

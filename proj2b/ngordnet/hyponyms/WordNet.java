@@ -84,5 +84,4 @@ public class WordNet {
         return tr + "]";
 
     }
-
 }
