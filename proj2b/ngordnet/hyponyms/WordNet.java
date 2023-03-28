@@ -71,9 +71,9 @@ public class WordNet {
         }
 
         // k != 0 case
-        /* if (k != 0) {
+        /*if (k != 0) {
 
-        } */
+        }*/
 
         // converts list of hyponyms to string
         String tr = "[";
