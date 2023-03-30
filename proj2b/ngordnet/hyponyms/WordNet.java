@@ -26,12 +26,12 @@ public class WordNet {
             }
             String[] arr = hyps.readLine().split(",");
             int id = Integer.valueOf(arr[0]);
-            String words = arr[1];
+            String words = arr[1] + ",";
             if (words.contains(" ")) {
                 String[] stArr = words.split(" ");
                 words = "";
                 for (int i = 0; i < stArr.length - 1; i++) {
-                    words += (stArr[i] + ", ");
+                    words += (stArr[i] + ",");
                 }
                 words += (stArr[stArr.length - 1]);
             }
@@ -45,9 +45,9 @@ public class WordNet {
             }
             String[] arr = syns.readLine().split(",");
             for (int i = 1; i < arr.length; i++) {
-                if (revIDs.get(arr[i]) != null) {
-                    synsets.addEdge(Integer.valueOf(arr[0]), revIDs.get(arr[i]));
-                }
+                // if (wordIDs.get(arr[i]) != null) {
+                    synsets.addEdge(Integer.valueOf(arr[0]), Integer.valueOf(arr[i]));
+                //}
             }
         }
     }
@@ -55,8 +55,15 @@ public class WordNet {
     // gets hyponyms of words
     public String hyponyms(List<String> words, int k, NGramMap n) {
 
+        int id = 0;
         // gets hyponyms of first word
-        int id = revIDs.get(words.get(0));
+
+        String firstWord = words.get(0) + ",";
+        for (String i : revIDs.keySet()) {
+            if (i.contains(firstWord)) {
+                id = revIDs.get(i);
+            }
+        }
         ArrayList<String> h = synsets.getChildren(id);
 
         // removes hyponyms that are not also hyponyms of all other words
@@ -82,6 +89,5 @@ public class WordNet {
         }
         tr += (h.get(h.size() - 1));
         return tr + "]";
-
     }
 }

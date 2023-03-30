@@ -1,4 +1,4 @@
-package ngordnet.main;
+package ngordnet.main.useless;
 
 import edu.princeton.cs.algs4.In;
 
@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.In;
  */
 public class FileReaderDemo {
     public static void main(String[] args) {
-        In in = new In("ngordnet/main/example_input_file.txt");
+        In in = new In("ngordnet/main/useless/example_input_file.txt");
 
         /* Every time you call a read method from the In class,
          * it reads the next token from the file, assuming it is

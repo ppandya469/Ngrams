@@ -7,6 +7,7 @@ import java.util.ArrayList;
 //import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.Collections;
 
 public class DirectedGraph {
 
@@ -56,6 +57,7 @@ public class DirectedGraph {
             return new ArrayList<>();
         }
         ArrayList<String> tr = getAllChildren(lst.get(id));
+        Collections.sort(tr);
         return tr;
 
     }
@@ -64,7 +66,18 @@ public class DirectedGraph {
     private ArrayList<String> getAllChildren(Node n) {
 
         ArrayList<String> vals = new ArrayList<>();
-        vals.add(n.id);
+        if (n.id.contains(" ")) {
+
+            String[] arr = n.id.split(",");
+            for (String i : arr) {
+                vals.add(i);
+            }
+        } else {
+            String[] arr = n.id.split(",");
+            for (String i : arr) {
+                vals.add(i);
+            }
+        }
         if (n.children.isEmpty()) {
             return vals;
         } else {

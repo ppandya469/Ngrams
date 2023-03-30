@@ -1,4 +1,4 @@
-package ngordnet.main;
+package ngordnet.main.useless;
 
 import ngordnet.browser.NgordnetQuery;
 import ngordnet.browser.NgordnetQueryHandler;
