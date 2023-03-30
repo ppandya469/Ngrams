@@ -1,4 +1,4 @@
-package ngordnet.main.useless;
+package ngordnet.main;
 
 import ngordnet.ngrams.NGramMap;
 import ngordnet.ngrams.TimeSeries;

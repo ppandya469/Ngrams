@@ -56,9 +56,9 @@ public class WordNet {
     public String hyponyms(List<String> words, int k, NGramMap n) {
 
         int id = 0;
-        // gets hyponyms of first word
 
-        String firstWord = words.get(0) + ",";
+        // gets hyponyms of first word
+        String firstWord = words.get(words.size()-1) + ",";
         for (String i : revIDs.keySet()) {
             if (i.contains(firstWord)) {
                 id = revIDs.get(i);
@@ -66,6 +66,7 @@ public class WordNet {
         }
         ArrayList<String> h = synsets.getChildren(id);
 
+        /*
         // removes hyponyms that are not also hyponyms of all other words
         for (int i = 1; i < words.size(); i++) {
             int d = revIDs.get(words.get(i));
@@ -76,6 +77,7 @@ public class WordNet {
                 }
             }
         }
+         */
 
         // k != 0 case
         /*if (k != 0) {
