@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.In;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import ngordnet.ngrams.*;
 
@@ -12,6 +13,8 @@ public class WordNet {
     private DirectedGraph synsets;
     private TreeMap<Integer, String> wordIDs;
     private TreeMap<String, Integer> revIDs;
+    private ArrayList<Integer> childrenIDs;
+    private TreeMap<Integer, ArrayList> pcIDS;
 
     // reads data into two maps (each the reverse of each other) and a directed graph.
     public WordNet(String synFile, String hypFile) {
@@ -19,6 +22,20 @@ public class WordNet {
         In syns = new In(hypFile);
         wordIDs = new TreeMap<>();
         revIDs = new TreeMap<>();
+        childrenIDs = new ArrayList<>();
+        pcIDS = new TreeMap<>();
+
+
+        while (syns.hasNextLine()) {
+            if (syns.isEmpty()) {
+                break;
+            }
+            String[] arr = syns.readLine().split(",");
+            int parentID = Integer.valueOf(arr[0]);
+            for (int i = 1; i < arr.length; i++) {
+                childrenIDs.add(Integer.valueOf(arr[i]));
+            }
+        }
 
         while (hyps.hasNextLine()) {
             if (hyps.isEmpty()) {
@@ -38,7 +55,7 @@ public class WordNet {
             wordIDs.put(id, words);
             revIDs.put(words, id);
         }
-        synsets = new DirectedGraph(wordIDs);
+        synsets = new DirectedGraph(wordIDs, pcIDS);
         while (syns.hasNextLine()) {
             if (syns.isEmpty()) {
                 break;
@@ -55,28 +72,82 @@ public class WordNet {
     // gets hyponyms of words
     public String hyponyms(List<String> words, int k, NGramMap n) {
 
-        int id = 0;
-
-        // gets hyponyms of first word
-        String firstWord = words.get(words.size()-1) + ",";
+        TreeSet<Integer> wordsIDHolder = new TreeSet<>();
+        String firstWord = words.get(0) + ",";
         for (String i : revIDs.keySet()) {
             if (i.contains(firstWord)) {
-                id = revIDs.get(i);
+                wordsIDHolder.add(revIDs.get(i));
             }
         }
-        ArrayList<String> h = synsets.getChildren(id);
+
+        ArrayList<String> holder = new ArrayList<>();
+        for (int j : wordsIDHolder) {
+            holder.addAll(synsets.getChildren(j));
+        }
 
         // k != 0 case
         /*if (k != 0) {
-
         }*/
 
         // converts list of hyponyms to string
         String tr = "[";
-        for (int i = 0; i < h.size() - 1; i++) {
-            tr += (h.get(i) + ", ");
+        for (int i = 0; i < holder.size() - 1; i++) {
+            tr += (holder.get(i) + ", ");
         }
-        tr += (h.get(h.size() - 1));
+        tr += (holder.get(holder.size() - 1));
         return tr + "]";
     }
 }
+
+
+
+    /*public String hyponyms(List<String> words, int k, NGramMap n) {
+        TreeSet<Integer> childIDHolder = new TreeSet<>();
+        TreeSet<Integer> parentIDHolder = new TreeSet<>();
+        TreeSet<Integer> wordsIDHolder = new TreeSet<>();
+        boolean matches = false;
+
+        for (int j = 0; j < words.size() - 1; j++) {
+            String firstWord = "," + words.get(j) + ",";
+            int id = 0;
+            for (String i : revIDs.keySet()) {
+                if (i.contains(firstWord)) {
+                    id = revIDs.get(i);
+                }
+            }
+            ArrayList<String> returnList = synsets.getChildren(id);
+            matches = returnList.contains(words.get(j+1));
+        }
+
+
+        // gets hyponyms of first word
+        if (words.size() == 1) {
+            String firstWord = "," + words.get(words.size() - 1) + ",";
+            for (String i : revIDs.keySet()) {
+                if (i.contains(firstWord)) {
+                    wordsIDHolder.add(revIDs.get(i));
+                }
+            }
+        }
+        // traverse the tree to see if there is a match
+        // find id of current word
+        //find id of next word
+        //if current word is related to next word
+
+        // if match is found then look at the last word
+
+
+        for (int j = words.size() - 1; j == 1; j--) {
+            String currWord = words.get(j) + ",";
+            String prevWord = words.get(j - 1) + ",";
+            for (String i : revIDs.keySet()) { //compares keys in revIDs with the last word
+                if (i.contains(currWord)) {
+                    childIDHolder.add(revIDs.get(i));
+                }
+            }
+            for (String i : revIDs.keySet()) { //compares keys in revIDs with the last word
+                if (i.contains(prevWord)) {
+                    parentIDHolder.add(revIDs.get(i));
+                }
+            }
+        }*/
