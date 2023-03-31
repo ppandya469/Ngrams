@@ -72,8 +72,8 @@ public class WordNet {
             }
         }
 
-        // traverses the tree and removes not related
-        
+        // traverses the tree and removes not related ids
+
 
         // gets children of all ids in wordsIDHolder
         ArrayList<String> holder = new ArrayList<>();
@@ -81,11 +81,24 @@ public class WordNet {
             holder.addAll(synsets.getChildren(j));
         }
 
-
+        /*
+        // removes hyponyms that are not also hyponyms of all other words
+                for (int i = 1; i < words.size(); i++) {
+                    int d = revIDs.get(words.get(i));
+                    ArrayList<String> temp = synsets.getChildren(id);
+                    for (String word : temp) {
+                        if (!h.contains(word)) {
+                            h.remove(word);
+                        }
+                    }
+                }
+         */
 
         // k != 0 case
-        /*if (k != 0) {
-        }*/
+        /*
+        if (k != 0) {
+        }
+        */
 
         // converts list of hyponyms to string
         String tr = "[";
