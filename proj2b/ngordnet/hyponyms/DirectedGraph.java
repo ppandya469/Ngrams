@@ -66,16 +66,21 @@ public class DirectedGraph {
     private ArrayList<String> getAllChildren(Node n) {
 
         ArrayList<String> vals = new ArrayList<>();
+
         if (n.id.contains(" ")) {
 
             String[] arr = n.id.split(",");
             for (String i : arr) {
-                vals.add(i);
+                if (!(i == "")) {
+                    vals.add(i);
+                }
             }
         } else {
             String[] arr = n.id.split(",");
             for (String i : arr) {
-                vals.add(i);
+                if (!(i == "")){
+                    vals.add(i);
+                }
             }
         }
         if (n.children.isEmpty()) {

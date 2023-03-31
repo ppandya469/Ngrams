@@ -31,7 +31,7 @@ public class WordNet {
             }
             String[] arr = hyps.readLine().split(",");
             int id = Integer.valueOf(arr[0]);
-            String words = arr[1] + ",";
+            String words = "," + arr[1] + ",";
             if (words.contains(" ")) {
                 String[] stArr = words.split(" ");
                 words = "";
@@ -63,18 +63,25 @@ public class WordNet {
     // gets hyponyms of words
     public String hyponyms(List<String> words, int k, NGramMap n) {
 
+        // gets last word in words adds all ids to wordsIDHolder
         TreeSet<Integer> wordsIDHolder = new TreeSet<>();
-        String firstWord = words.get(0) + ",";
+        String lastWord = "," + words.get(words.size() - 1) + ",";
         for (String i : revIDs.keySet()) {
-            if (i.contains(firstWord)) {
+            if (i.contains(lastWord)) {
                 wordsIDHolder.add(revIDs.get(i));
             }
         }
 
+        // traverses the tree and removes not related
+        
+
+        // gets children of all ids in wordsIDHolder
         ArrayList<String> holder = new ArrayList<>();
         for (int j : wordsIDHolder) {
             holder.addAll(synsets.getChildren(j));
         }
+
+
 
         // k != 0 case
         /*if (k != 0) {
