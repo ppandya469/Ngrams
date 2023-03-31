@@ -25,18 +25,6 @@ public class WordNet {
         childrenIDs = new ArrayList<>();
         pcIDS = new TreeMap<>();
 
-
-        while (syns.hasNextLine()) {
-            if (syns.isEmpty()) {
-                break;
-            }
-            String[] arr = syns.readLine().split(",");
-            int parentID = Integer.valueOf(arr[0]);
-            for (int i = 1; i < arr.length; i++) {
-                childrenIDs.add(Integer.valueOf(arr[i]));
-            }
-        }
-
         while (hyps.hasNextLine()) {
             if (hyps.isEmpty()) {
                 break;
@@ -62,9 +50,12 @@ public class WordNet {
             }
             String[] arr = syns.readLine().split(",");
             for (int i = 1; i < arr.length; i++) {
-                // if (wordIDs.get(arr[i]) != null) {
-                    synsets.addEdge(Integer.valueOf(arr[0]), Integer.valueOf(arr[i]));
-                //}
+                synsets.addEdge(Integer.valueOf(arr[0]), Integer.valueOf(arr[i]));
+
+                int parentID = Integer.valueOf(arr[0]);
+                for (int i2 = 1; i2 < arr.length; i2++) {
+                    childrenIDs.add(Integer.valueOf(arr[i2]));
+                }
             }
         }
     }
