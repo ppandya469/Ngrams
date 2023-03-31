@@ -2,10 +2,7 @@ package ngordnet.hyponyms;
 
 import edu.princeton.cs.algs4.In;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 import ngordnet.ngrams.*;
 
