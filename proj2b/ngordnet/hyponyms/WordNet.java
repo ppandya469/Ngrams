@@ -66,19 +66,6 @@ public class WordNet {
         }
         ArrayList<String> h = synsets.getChildren(id);
 
-        /*
-        // removes hyponyms that are not also hyponyms of all other words
-        for (int i = 1; i < words.size(); i++) {
-            int d = revIDs.get(words.get(i));
-            ArrayList<String> temp = synsets.getChildren(id);
-            for (String word : temp) {
-                if (!h.contains(word)) {
-                    h.remove(word);
-                }
-            }
-        }
-         */
-
         // k != 0 case
         /*if (k != 0) {
 
