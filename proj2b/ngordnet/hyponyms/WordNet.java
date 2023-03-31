@@ -81,18 +81,18 @@ public class WordNet {
             holder.addAll(synsets.getChildren(j));
         }
 
-        /*
+
         // removes hyponyms that are not also hyponyms of all other words
                 for (int i = 1; i < words.size(); i++) {
                     int d = revIDs.get(words.get(i));
-                    ArrayList<String> temp = synsets.getChildren(id);
-                    for (String word : temp) {
-                        if (!h.contains(word)) {
-                            h.remove(word);
+                    ArrayList<String> temp = synsets.getChildren(d);
+                    for (String word : holder) {
+                        if (!temp.contains(word)) {
+                            holder.remove(word);
                         }
                     }
                 }
-         */
+
 
         // k != 0 case
         /*
