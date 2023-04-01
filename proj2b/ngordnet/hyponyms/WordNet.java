@@ -111,11 +111,21 @@ public class WordNet {
                 }
             }
         }
-        String tr = "[";
-        for (int i = 0; i < holder.size() - 1; i++) {
-            tr += (holder.get(i) + ", ");
+
+        TreeSet<String> temp = new TreeSet<>();
+        for (String m: holder) {
+            temp.add(m);
         }
-        tr += (holder.get(holder.size() - 1));
+        ArrayList<String> newHolder = new ArrayList<>();
+        for(String o: temp) {
+            newHolder.add(o);
+        }
+
+        String tr = "[";
+        for (int i = 0; i < newHolder.size() - 1; i++) {
+            tr += (newHolder.get(i) + ", ");
+        }
+        tr += (newHolder.get(newHolder.size() - 1));
         return tr + "]";
     }
 }
