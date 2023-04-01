@@ -63,12 +63,18 @@ public class WordNet {
         // gets last word in words adds all ids to wordsIDHolder
         TreeSet<Integer> wordsIDHolder = new TreeSet<>();
         String lastWord = "," + words.get(words.size() - 1) + ",";
+        /*
         for (String i : revIDs.keySet()) {
             if (i.contains(lastWord)) {
                 wordsIDHolder.add(revIDs.get(i));
             }
         }
-
+         */
+        for (int j : wordIDs.keySet()) {
+            if (wordIDs.get(j).contains(lastWord)) {
+                wordsIDHolder.add(j);
+            }
+        }
         // traverses the tree and removes not related ids
 
 
@@ -78,18 +84,27 @@ public class WordNet {
             holder.addAll(synsets.getChildren(j));
         }
 
-        /*
+
         // removes hyponyms that are not also hyponyms of all other words
-                for (int i = 1; i < words.size(); i++) {
-                    int d = revIDs.get(words.get(i));
-                    ArrayList<String> temp = synsets.getChildren(d);
-                    for (String word : holder) {
-                        if (!temp.contains(word)) {
-                            holder.remove(word);
-                        }
-                    }
-                }
-         */
+            //for (int i = 1; i < words.size(); i++) {
+        int d = 0;
+        for (String p : revIDs.keySet()) {
+            if (p.contains("," + words.get(0) + ",")) {
+                d = revIDs.get(p);
+            }
+        }
+        //int d = revIDs.get().contains("," + words.get(0) + ",");
+        ArrayList<String> temp1 = synsets.getChildren(d);
+        ArrayList<String> holderCopy = new ArrayList<>();
+        for (String q : holder) {
+            holderCopy.add(q);
+        }
+        for (String word : holderCopy) {
+            if (!temp1.contains(word)) {
+                holder.remove(word);
+            }
+        }
+        //}
 
 
         // k != 0 case
@@ -100,6 +115,7 @@ public class WordNet {
 
         // converts list of hyponyms to string
         Collections.sort(holder);
+        /*
         int numberOfLastWords = 0;
         int index = 0;
         for (String l : holder) {
@@ -111,6 +127,7 @@ public class WordNet {
                 }
             }
         }
+        */
 
         TreeSet<String> temp = new TreeSet<>();
         for (String m: holder) {
