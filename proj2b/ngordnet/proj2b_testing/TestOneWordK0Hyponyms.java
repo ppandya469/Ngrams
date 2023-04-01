@@ -43,11 +43,23 @@ public class TestOneWordK0Hyponyms {
     public void testActLargeFileK3() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("act");
+        List<String> words = List.of("concept");
 
-        NgordnetQuery nq = new NgordnetQuery(words, 2000, 2020, 3);
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 3);
         String actual = studentHandler.handle(nq);
-        String expected = "[first, no, out]";
+        String expected = "[like, one, over]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testMultipleLargeFileK0() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("pad, movement, set, press, lead, effect, shape, center, right");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1900, 2020, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[]";
         assertThat(actual).isEqualTo(expected);
     }
 }

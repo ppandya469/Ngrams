@@ -149,9 +149,6 @@ public class WordNet {
                         }
                     }
                     newHolder.add(currentWord); // store in newHolder arraylist
-                    if (currentWord == "first") {
-                        int a = 1;
-                    }
                     summedOccurrencePerWord.remove(currentWord, maxFreq);
                     maxFreq = 0.0;
                     currentFreq = 0.0;
@@ -167,12 +164,16 @@ public class WordNet {
             }
         }
         Collections.sort(newHolder);
-        String tr = "[";
-        for (int i = 0; i < newHolder.size() - 1; i++) {
-            tr += (newHolder.get(i) + ", ");
+        if (newHolder.isEmpty()) {
+            return "[]";
+        } else {
+            String tr = "[";
+            for (int i = 0; i < newHolder.size() - 1; i++) {
+                tr += (newHolder.get(i) + ", ");
+            }
+            tr += (newHolder.get(newHolder.size() - 1));
+            return tr + "]";
         }
-        tr += (newHolder.get(newHolder.size() - 1));
-        return tr + "]";
     }
 }
 
