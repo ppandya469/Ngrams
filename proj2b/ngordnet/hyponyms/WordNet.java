@@ -78,7 +78,7 @@ public class WordNet {
             holder.addAll(synsets.getChildren(j));
         }
 
-
+        /*
         // removes hyponyms that are not also hyponyms of all other words
                 for (int i = 1; i < words.size(); i++) {
                     int d = revIDs.get(words.get(i));
@@ -89,6 +89,7 @@ public class WordNet {
                         }
                     }
                 }
+         */
 
 
         // k != 0 case
@@ -98,6 +99,18 @@ public class WordNet {
         */
 
         // converts list of hyponyms to string
+        Collections.sort(holder);
+        int numberOfLastWords = 0;
+        int index = 0;
+        for (String l : holder) {
+            index++;
+            if (l == lastWord) {
+                numberOfLastWords++;
+                if (numberOfLastWords > 1) {
+                    holder.remove(index);
+                }
+            }
+        }
         String tr = "[";
         for (int i = 0; i < holder.size() - 1; i++) {
             tr += (holder.get(i) + ", ");
