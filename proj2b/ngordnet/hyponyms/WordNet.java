@@ -123,8 +123,8 @@ public class WordNet {
         ArrayList<String> newHolder = new ArrayList<>();
         double t = 0.0;
         int counter = 0;
-        double max = 0.0;
-        double current;
+        double maxFreq = 0.0;
+        double currentFreq;
         String currentWord = "";
         int kValue = k;
         if (k > 0) {
@@ -136,19 +136,26 @@ public class WordNet {
                 }
                 // add word and summed value to new TreeMap
                 summedOccurrencePerWord.put(r, t);
+                t = 0.0;
             }
             // find k number of max value words in new TreeMap
             for (int v = 0; v < kValue; v++) {
                 if (!summedOccurrencePerWord.isEmpty()) {
                     for (String u : summedOccurrencePerWord.keySet()) {
-                        current = summedOccurrencePerWord.get(u);
-                        if (current >= max && current > 0) {
-                            max = current;
+                        currentFreq = summedOccurrencePerWord.get(u);
+                        if (currentFreq >= maxFreq && currentFreq > 0) {
+                            maxFreq = currentFreq;
                             currentWord = u;
                         }
                     }
                     newHolder.add(currentWord); // store in newHolder arraylist
-                    summedOccurrencePerWord.remove(currentWord);
+                    if (currentWord == "first") {
+                        int a = 1;
+                    }
+                    summedOccurrencePerWord.remove(currentWord, maxFreq);
+                    maxFreq = 0.0;
+                    currentFreq = 0.0;
+                    currentWord = "";
                 } else {
                     break;
                 }
@@ -159,6 +166,7 @@ public class WordNet {
                 newHolder.add(o);
             }
         }
+        Collections.sort(newHolder);
         String tr = "[";
         for (int i = 0; i < newHolder.size() - 1; i++) {
             tr += (newHolder.get(i) + ", ");
