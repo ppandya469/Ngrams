@@ -13,7 +13,9 @@ import static com.google.common.truth.Truth.assertThat;
 public class TestOneWordK0Hyponyms {
     // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
     public static final String WORDS_FILE = "data/ngrams/very_short.csv";
+    public static final String LARGE_WORDS_FILE = "data/ngrams/top_14377_words.csv";
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
+    public static final String LARGE_TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
     public static final String SMALL_HYPONYM_FILE = "data/wordnet/hyponyms16.txt";
     public static final String LARGE_SYNSET_FILE = "data/wordnet/synsets.txt";
@@ -34,16 +36,18 @@ public class TestOneWordK0Hyponyms {
     @Test
     public void wordNetTestBasic() {
         WordNet wN = new WordNet("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
-
         assertThat(wN).isNotNull();
     }
 
     @Test
-    public void autograderTest1() {
+    public void testActLargeFileK3() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
-        List<String> words = List.of("solid");
-        NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("act");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 2000, 2020, 3);
         String actual = studentHandler.handle(nq);
+        String expected = "[first, no, out]";
+        assertThat(actual).isEqualTo(expected);
     }
 }

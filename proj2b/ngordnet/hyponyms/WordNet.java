@@ -12,6 +12,7 @@ public class WordNet {
     private TreeMap<String, Integer> revIDs;
     private ArrayList<Integer> childrenIDs;
     private TreeMap<Integer, ArrayList> pcIDS;
+    private TreeMap<Integer, Double> frequencyMap;
 
     // reads data into two maps (each the reverse of each other) and a directed graph.
     public WordNet(String synFile, String hypFile) {
@@ -21,6 +22,7 @@ public class WordNet {
         revIDs = new TreeMap<>();
         childrenIDs = new ArrayList<>();
         pcIDS = new TreeMap<>();
+        frequencyMap = new TreeMap<>();
 
         while (hyps.hasNextLine()) {
             if (hyps.isEmpty()) {
@@ -58,11 +60,12 @@ public class WordNet {
     }
 
     // gets hyponyms of words
-    public String hyponyms(List<String> words, int k, NGramMap n) {
+    public String hyponyms(List<String> words, int k, int startYear, int endYear, NGramMap n) {
 
         // gets last word in words adds all ids to wordsIDHolder
         TreeSet<Integer> wordsIDHolder = new TreeSet<>();
         String lastWord = "," + words.get(words.size() - 1) + ",";
+
         /*
         for (String i : revIDs.keySet()) {
             if (i.contains(lastWord)) {
@@ -70,12 +73,13 @@ public class WordNet {
             }
         }
          */
+
+
         for (int j : wordIDs.keySet()) {
             if (wordIDs.get(j).contains(lastWord)) {
                 wordsIDHolder.add(j);
             }
         }
-        // traverses the tree and removes not related ids
 
 
         // gets children of all ids in wordsIDHolder
@@ -86,58 +90,75 @@ public class WordNet {
 
 
         // removes hyponyms that are not also hyponyms of all other words
-            //for (int i = 1; i < words.size(); i++) {
-        int d = 0;
-        for (String p : revIDs.keySet()) {
-            if (p.contains("," + words.get(0) + ",")) {
-                d = revIDs.get(p);
+        if (words.size() > 1) {
+            int d = 0;
+            for (String p : revIDs.keySet()) {
+                if (p.contains("," + words.get(0) + ",")) {
+                    d = revIDs.get(p);
+                }
             }
-        }
-        //int d = revIDs.get().contains("," + words.get(0) + ",");
-        ArrayList<String> temp1 = synsets.getChildren(d);
-        ArrayList<String> holderCopy = new ArrayList<>();
-        for (String q : holder) {
-            holderCopy.add(q);
-        }
-        for (String word : holderCopy) {
-            if (!temp1.contains(word)) {
-                holder.remove(word);
+
+            ArrayList<String> temp1 = synsets.getChildren(d);
+            ArrayList<String> holderCopy = new ArrayList<>();
+            for (String q : holder) {
+                holderCopy.add(q);
             }
-        }
-        //}
-
-
-        // k != 0 case
-        /*
-        if (k != 0) {
-        }
-        */
-
-        // converts list of hyponyms to string
-        Collections.sort(holder);
-        /*
-        int numberOfLastWords = 0;
-        int index = 0;
-        for (String l : holder) {
-            index++;
-            if (l == lastWord) {
-                numberOfLastWords++;
-                if (numberOfLastWords > 1) {
-                    holder.remove(index);
+            for (String word : holderCopy) {
+                if (!temp1.contains(word)) {
+                    holder.remove(word);
                 }
             }
         }
-        */
 
+
+        // converts list of hyponyms to string
+        Collections.sort(holder);
         TreeSet<String> temp = new TreeSet<>();
-        for (String m: holder) {
+        for (String m : holder) {
             temp.add(m);
         }
-        ArrayList<String> newHolder = new ArrayList<>();
-        for(String o: temp) {
-            newHolder.add(o);
-        }
 
+        // k != 0 case
+        TreeMap<String, Double> summedOccurrencePerWord = new TreeMap<>();
+        ArrayList<String> newHolder = new ArrayList<>();
+        double t = 0.0;
+        int counter = 0;
+        double max = 0.0;
+        double current;
+        String currentWord = "";
+        int kValue = k;
+        if (k > 0) {
+            for (String r : temp) {
+                frequencyMap = n.weightHistory(r, startYear, endYear);
+                // add values of frequencyMap
+                for (int s : frequencyMap.keySet()) {
+                    t = t + frequencyMap.get(s);
+                }
+                // add word and summed value to new TreeMap
+                summedOccurrencePerWord.put(r, t);
+            }
+            // find k number of max value words in new TreeMap
+            for (int v = 0; v < kValue; v++) {
+                if (!summedOccurrencePerWord.isEmpty()) {
+                    for (String u : summedOccurrencePerWord.keySet()) {
+                        current = summedOccurrencePerWord.get(u);
+                        if (current >= max && current > 0) {
+                            max = current;
+                            currentWord = u;
+                        }
+                    }
+                    newHolder.add(currentWord); // store in newHolder arraylist
+                    summedOccurrencePerWord.remove(currentWord);
+                } else {
+                    break;
+                }
+            }
+
+        } else { //if k == 0
+            for (String o : temp) {
+                newHolder.add(o);
+            }
+        }
         String tr = "[";
         for (int i = 0; i < newHolder.size() - 1; i++) {
             tr += (newHolder.get(i) + ", ");
