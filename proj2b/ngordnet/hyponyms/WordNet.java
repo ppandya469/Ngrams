@@ -148,7 +148,9 @@ public class WordNet {
                             currentWord = u;
                         }
                     }
-                    newHolder.add(currentWord); // store in newHolder arraylist
+                    if (!(currentWord == "")) {
+                        newHolder.add(currentWord); // store in newHolder arraylist
+                    }
                     summedOccurrencePerWord.remove(currentWord, maxFreq);
                     maxFreq = 0.0;
                     currentFreq = 0.0;
@@ -160,7 +162,9 @@ public class WordNet {
 
         } else { //if k == 0
             for (String o : temp) {
-                newHolder.add(o);
+                if (!(o == "")) {
+                    newHolder.add(o);
+                }
             }
         }
         Collections.sort(newHolder);

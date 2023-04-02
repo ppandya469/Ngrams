@@ -55,7 +55,7 @@ public class TestOneWordK0Hyponyms {
     public void testMultipleLargeFileK0() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("pad, movement, set, press, lead, effect, shape, center, right");
+        List<String> words = List.of("pad", "movement", "set", "press", "lead", "effect", "shape", "center", "right");
 
         NgordnetQuery nq = new NgordnetQuery(words, 1900, 2020, 0);
         String actual = studentHandler.handle(nq);
@@ -79,7 +79,7 @@ public class TestOneWordK0Hyponyms {
     public void testMultipleLargeFileK8() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("knowledge, muscle_spasm");
+        List<String> words = List.of("knowledge", "muscle_spasm");
 
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
         String actual = studentHandler.handle(nq);
@@ -91,7 +91,7 @@ public class TestOneWordK0Hyponyms {
     public void testMultipleLargeFileK9() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("entity, matzah_ball");
+        List<String> words = List.of("entity", "matzah_ball");
 
         NgordnetQuery nq = new NgordnetQuery(words, 1920, 1980, 9);
         String actual = studentHandler.handle(nq);
