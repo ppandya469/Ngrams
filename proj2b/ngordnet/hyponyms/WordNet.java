@@ -10,7 +10,6 @@ public class WordNet {
     private DirectedGraph synsets;
     private TreeMap<Integer, String> wordIDs;
     private TreeMap<Integer, ArrayList> pcIDS;
-    private TreeMap<Integer, Double> frequencyMap;
 
     // reads data into two maps (each the reverse of each other) and a directed graph.
     public WordNet(String synFile, String hypFile) {
@@ -18,7 +17,6 @@ public class WordNet {
         In syns = new In(hypFile);
         wordIDs = new TreeMap<>();
         pcIDS = new TreeMap<>();
-        frequencyMap = new TreeMap<>();
 
         while (hyps.hasNextLine()) {
             if (hyps.isEmpty()) {
@@ -94,50 +92,27 @@ public class WordNet {
         }
 
         // k != 0 case
-        TreeMap<String, Double> summedOccurrencePerWord = new TreeMap<>();
         ArrayList<String> newHolder = new ArrayList<>();
-        double t = 0.0;
-        int counter = 0;
-        double maxFreq = 0.0;
-        double currentFreq;
-        String currentWord = "";
-        int kValue = k;
         if (k > 0) {
-            for (String r : temp) {
-                frequencyMap = n.weightHistory(r, startYear, endYear);
-                // add values of frequencyMap
-                for (int s : frequencyMap.keySet()) {
-                    t = t + frequencyMap.get(s);
-                }
-                // add word and summed value to new TreeMap
-                summedOccurrencePerWord.put(r, t);
-                t = 0.0;
-            }
-            //System.out.println("Acid: " + summedOccurrencePerWord.get("acid"));
-            //System.out.println("Oil: " + summedOccurrencePerWord.get("oil"));
-
-            // find k number of max value words in new TreeMap
-            for (int v = 0; v < kValue; v++) {
-                if (!summedOccurrencePerWord.isEmpty()) {
-                    for (String u : summedOccurrencePerWord.keySet()) {
-                        currentFreq = summedOccurrencePerWord.get(u);
-                        if (currentFreq >= maxFreq && currentFreq > 0) {
-                            maxFreq = currentFreq;
-                            currentWord = u;
-                        }
+            for (int i = 0; i < k; i++) {
+                double max = 0.0;
+                String maxWord = "";
+                for (String o : temp) {
+                    double t = 0.0;
+                    List<Double> asdf = n.countHistory(o).data();
+                    for (Double d : asdf) {
+                        t += d;
                     }
-                    if (!(currentWord == "")) {
-                        newHolder.add(currentWord); // store in newHolder arraylist
+                    if (t >= max) {
+                        max = t;
+                        maxWord = o;
                     }
-                    summedOccurrencePerWord.remove(currentWord, maxFreq);
-                    maxFreq = 0.0;
-                    currentFreq = 0.0;
-                    currentWord = "";
-                } else {
-                    break;
                 }
+                if (!maxWord.equals("")) {
+                    newHolder.add(maxWord);
+                }
+                temp.remove(maxWord);
             }
-
         } else { //if k == 0
             for (String o : temp) {
                 if (!(o == "")) {
@@ -158,56 +133,3 @@ public class WordNet {
         }
     }
 }
-
-
-
-    /*public String hyponyms(List<String> words, int k, NGramMap n) {
-        TreeSet<Integer> childIDHolder = new TreeSet<>();
-        TreeSet<Integer> parentIDHolder = new TreeSet<>();
-        TreeSet<Integer> wordsIDHolder = new TreeSet<>();
-        boolean matches = false;
-
-        for (int j = 0; j < words.size() - 1; j++) {
-            String firstWord = "," + words.get(j) + ",";
-            int id = 0;
-            for (String i : revIDs.keySet()) {
-                if (i.contains(firstWord)) {
-                    id = revIDs.get(i);
-                }
-            }
-            ArrayList<String> returnList = synsets.getChildren(id);
-            matches = returnList.contains(words.get(j+1));
-        }
-
-
-        // gets hyponyms of first word
-        if (words.size() == 1) {
-            String firstWord = "," + words.get(words.size() - 1) + ",";
-            for (String i : revIDs.keySet()) {
-                if (i.contains(firstWord)) {
-                    wordsIDHolder.add(revIDs.get(i));
-                }
-            }
-        }
-        // traverse the tree to see if there is a match
-        // find id of current word
-        //find id of next word
-        //if current word is related to next word
-
-        // if match is found then look at the last word
-
-
-        for (int j = words.size() - 1; j == 1; j--) {
-            String currWord = words.get(j) + ",";
-            String prevWord = words.get(j - 1) + ",";
-            for (String i : revIDs.keySet()) { //compares keys in revIDs with the last word
-                if (i.contains(currWord)) {
-                    childIDHolder.add(revIDs.get(i));
-                }
-            }
-            for (String i : revIDs.keySet()) { //compares keys in revIDs with the last word
-                if (i.contains(prevWord)) {
-                    parentIDHolder.add(revIDs.get(i));
-                }
-            }
-        }*/
