@@ -62,7 +62,7 @@ public class DirectedGraph {
     // get self and all children of id
     public TreeSet<String> getChildren(int id) {
 
-        TreeMap<Integer, Node> unmarkedLst = lst;
+        TreeMap<Integer, Node> unmarkedLst = (TreeMap<Integer, Node>) lst.clone();
         if (!ids.contains(id)) {
             return new TreeSet<>();
         }
