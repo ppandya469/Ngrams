@@ -16,6 +16,7 @@ public class DirectedGraph {
 
         private String id;
         private ArrayList<Node> children = new ArrayList<>();
+        private boolean visited = false;
 
         private Node(String i) {
             id = i;
@@ -24,6 +25,15 @@ public class DirectedGraph {
         private void addChild(Node n) {
             children.add(n);
         }
+
+        private boolean marked() {
+            return visited;
+        }
+
+        private void visit() {
+            visited = true;
+        }
+
     }
 
     // turns the map between Integer and String into a map between Integer and node with id String and empty children
@@ -65,21 +75,16 @@ public class DirectedGraph {
     private TreeSet<String> getAllChildren(Node n) {
 
         TreeSet<String> values = new TreeSet<>();
-
-        if (n.id.contains(" ")) {
-
-            String[] arr = n.id.split(",");
-            for (String i : arr) {
-                if (!(i == "")) {
-                    values.add(i);
-                }
-            }
+        if (n.marked()) {
+            return values;
         } else {
-            String[] arr = n.id.split(",");
-            for (String i : arr) {
-                if (!(i == "")){
-                    values.add(i);
-                }
+            n.visit();
+        }
+
+        String[] arr = n.id.split(",");
+        for (String i : arr) {
+            if (!(i == "")){
+                values.add(i);
             }
         }
         if (n.children.isEmpty()) {
