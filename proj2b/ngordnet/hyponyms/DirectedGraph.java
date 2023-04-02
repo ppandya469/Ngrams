@@ -34,10 +34,6 @@ public class DirectedGraph {
             visited = true;
         }
 
-        private void revVisit() {
-            visited = false;
-        }
-
     }
 
     // turns the map between Integer and String into a map between Integer and node with id String and empty children
