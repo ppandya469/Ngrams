@@ -64,11 +64,17 @@ public class DirectedGraph {
     // get self and all children of id
     public TreeSet<String> getChildren(int id) {
 
+        for (int i : lst.keySet()) {
+            if (lst.get(i).marked()) {
+                lst.get(i).visited = false;
+            }
+        }
         if (!ids.contains(id)) {
             return new TreeSet<>();
         }
         TreeSet<String> tr = getAllChildren(lst.get(id));
         return tr;
+
     }
 
     // recursive method, prevents naked recursion. Performs a DFS and adds all children to the list.
