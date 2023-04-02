@@ -34,6 +34,10 @@ public class DirectedGraph {
             visited = true;
         }
 
+        private void revVisit() {
+            visited = false;
+        }
+
     }
 
     // turns the map between Integer and String into a map between Integer and node with id String and empty children
@@ -59,8 +63,6 @@ public class DirectedGraph {
         lst.get(a).addChild(lst.get(b));
     }
 
-
-
     // get self and all children of id
     public TreeSet<String> getChildren(int id) {
 
@@ -68,6 +70,7 @@ public class DirectedGraph {
             return new TreeSet<>();
         }
         TreeSet<String> tr = getAllChildren(lst.get(id));
+        //lst.get(id).revVisit(); (attempts to reset the flag but is not in the correct location
         return tr;
     }
 
@@ -75,6 +78,7 @@ public class DirectedGraph {
     private TreeSet<String> getAllChildren(Node n) {
 
         TreeSet<String> values = new TreeSet<>();
+        //n.revVisit(); (multiple word will work with this but single word will time out)
         if (n.marked()) {
             return values;
         } else {
