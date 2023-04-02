@@ -31,7 +31,27 @@ public class TestMultiWordK0Hyponyms {
         assertThat(actual).isEqualTo(expected);
     }
 
-    // TODO: Add more unit tests (including edge case tests) here.
+    @Test
+    public void test31Attempt3() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("matter", "bearskin");
 
-    // TODO: Create similar unit test files for the k != 0 cases.
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[bearskin]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void test32Attempt3() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("order", "suborder_Anisoptera");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[Anisoptera, suborder_Anisoptera]";
+        assertThat(actual).isEqualTo(expected);
+    }
 }

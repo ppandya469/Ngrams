@@ -62,25 +62,16 @@ public class WordNet {
     // gets hyponyms of words
     public String hyponyms(List<String> words, int k, int startYear, int endYear, NGramMap n) {
 
+        //
         // gets last word in words adds all ids to wordsIDHolder
         TreeSet<Integer> wordsIDHolder = new TreeSet<>();
         String lastWord = "," + words.get(words.size() - 1) + ",";
-
-        /*
-        for (String i : revIDs.keySet()) {
-            if (i.contains(lastWord)) {
-                wordsIDHolder.add(revIDs.get(i));
-            }
-        }
-         */
-
 
         for (int j : wordIDs.keySet()) {
             if (wordIDs.get(j).contains(lastWord)) {
                 wordsIDHolder.add(j);
             }
         }
-
 
         // gets children of all ids in wordsIDHolder
         ArrayList<String> holder = new ArrayList<>();
@@ -89,16 +80,19 @@ public class WordNet {
         }
 
 
-        // removes hyponyms that are not also hyponyms of all other words
+        // removes hyponyms that are not also hyponyms of all other words (current issue)
+        TreeSet<Integer> parentIDHolder = new TreeSet<>();
         if (words.size() > 1) {
-            int d = 0;
-            for (String p : revIDs.keySet()) {
-                if (p.contains("," + words.get(0) + ",")) {
-                    d = revIDs.get(p);
+            for (int p : wordIDs.keySet()) {
+                if (wordIDs.get(p).contains("," + words.get(0) + ",")) {
+                    parentIDHolder.add(p);
                 }
             }
 
-            ArrayList<String> temp1 = synsets.getChildren(d);
+            ArrayList<String> temp1 = new ArrayList<>();
+            for (int w : parentIDHolder) {
+                temp1.addAll(synsets.getChildren(w));
+            }
             ArrayList<String> holderCopy = new ArrayList<>();
             for (String q : holder) {
                 holderCopy.add(q);
@@ -138,6 +132,9 @@ public class WordNet {
                 summedOccurrencePerWord.put(r, t);
                 t = 0.0;
             }
+            System.out.println("Acid: " + summedOccurrencePerWord.get("acid"));
+            System.out.println("Oil: " + summedOccurrencePerWord.get("oil"));
+
             // find k number of max value words in new TreeMap
             for (int v = 0; v < kValue; v++) {
                 if (!summedOccurrencePerWord.isEmpty()) {
