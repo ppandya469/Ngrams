@@ -9,8 +9,6 @@ import ngordnet.ngrams.*;
 public class WordNet {
     private DirectedGraph synsets;
     private TreeMap<Integer, String> wordIDs;
-    private TreeMap<String, Integer> revIDs;
-    private ArrayList<Integer> childrenIDs;
     private TreeMap<Integer, ArrayList> pcIDS;
     private TreeMap<Integer, Double> frequencyMap;
 
@@ -19,8 +17,6 @@ public class WordNet {
         In hyps = new In(synFile);
         In syns = new In(hypFile);
         wordIDs = new TreeMap<>();
-        revIDs = new TreeMap<>();
-        childrenIDs = new ArrayList<>();
         pcIDS = new TreeMap<>();
         frequencyMap = new TreeMap<>();
 
@@ -40,7 +36,6 @@ public class WordNet {
                 words += (stArr[stArr.length - 1]);
             }
             wordIDs.put(id, words);
-            revIDs.put(words, id);
         }
         synsets = new DirectedGraph(wordIDs, pcIDS);
         while (syns.hasNextLine()) {
@@ -50,11 +45,6 @@ public class WordNet {
             String[] arr = syns.readLine().split(",");
             for (int i = 1; i < arr.length; i++) {
                 synsets.addEdge(Integer.valueOf(arr[0]), Integer.valueOf(arr[i]));
-
-                int parentID = Integer.valueOf(arr[0]);
-                for (int i2 = 1; i2 < arr.length; i2++) {
-                    childrenIDs.add(Integer.valueOf(arr[i2]));
-                }
             }
         }
     }
@@ -62,7 +52,6 @@ public class WordNet {
     // gets hyponyms of words
     public String hyponyms(List<String> words, int k, int startYear, int endYear, NGramMap n) {
 
-        //
         // gets last word in words adds all ids to wordsIDHolder
         TreeSet<Integer> wordsIDHolder = new TreeSet<>();
         String lastWord = "," + words.get(words.size() - 1) + ",";
@@ -74,13 +63,13 @@ public class WordNet {
         }
 
         // gets children of all ids in wordsIDHolder
-        ArrayList<String> holder = new ArrayList<>();
+        TreeSet<String> temp = new TreeSet<>();
         for (int j : wordsIDHolder) {
-            holder.addAll(synsets.getChildren(j));
+            temp.addAll(synsets.getChildren(j));
         }
 
 
-        // removes hyponyms that are not also hyponyms of all other words (current issue)
+        // removes hyponyms that are not also hyponyms of all other words
         TreeSet<Integer> parentIDHolder = new TreeSet<>();
         if (words.size() > 1) {
             for (int p : wordIDs.keySet()) {
@@ -94,22 +83,14 @@ public class WordNet {
                 temp1.addAll(synsets.getChildren(w));
             }
             ArrayList<String> holderCopy = new ArrayList<>();
-            for (String q : holder) {
+            for (String q : temp) {
                 holderCopy.add(q);
             }
             for (String word : holderCopy) {
                 if (!temp1.contains(word)) {
-                    holder.remove(word);
+                    temp.remove(word);
                 }
             }
-        }
-
-
-        // converts list of hyponyms to string
-        Collections.sort(holder);
-        TreeSet<String> temp = new TreeSet<>();
-        for (String m : holder) {
-            temp.add(m);
         }
 
         // k != 0 case
@@ -132,8 +113,8 @@ public class WordNet {
                 summedOccurrencePerWord.put(r, t);
                 t = 0.0;
             }
-            System.out.println("Acid: " + summedOccurrencePerWord.get("acid"));
-            System.out.println("Oil: " + summedOccurrencePerWord.get("oil"));
+            //System.out.println("Acid: " + summedOccurrencePerWord.get("acid"));
+            //System.out.println("Oil: " + summedOccurrencePerWord.get("oil"));
 
             // find k number of max value words in new TreeMap
             for (int v = 0; v < kValue; v++) {

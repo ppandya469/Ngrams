@@ -52,55 +52,44 @@ public class DirectedGraph {
 
 
     // get self and all children of id
-    public ArrayList<String> getChildren(int id) {
+    public TreeSet<String> getChildren(int id) {
 
         if (!ids.contains(id)) {
-            return new ArrayList<>();
+            return new TreeSet<>();
         }
-        ArrayList<String> tr = getAllChildren(lst.get(id));
-        Collections.sort(tr);
+        TreeSet<String> tr = getAllChildren(lst.get(id));
         return tr;
     }
 
     // recursive method, prevents naked recursion. Performs a DFS and adds all children to the list.
-    private ArrayList<String> getAllChildren(Node n) {
+    private TreeSet<String> getAllChildren(Node n) {
 
-        ArrayList<String> vals = new ArrayList<>();
+        TreeSet<String> values = new TreeSet<>();
 
         if (n.id.contains(" ")) {
 
             String[] arr = n.id.split(",");
             for (String i : arr) {
                 if (!(i == "")) {
-                    vals.add(i);
+                    values.add(i);
                 }
             }
         } else {
             String[] arr = n.id.split(",");
             for (String i : arr) {
                 if (!(i == "")){
-                    vals.add(i);
+                    values.add(i);
                 }
             }
         }
         if (n.children.isEmpty()) {
-            return vals;
+            return values;
         } else {
             for (Node c : n.children) {
-                vals.addAll(getAllChildren(c));
+                values.addAll(getAllChildren(c));
             }
-            return vals;
+            return values;
         }
 
-    }
-
-    public boolean isRelated(int parentID, int childID) {
-        ArrayList<Integer> arr= pcIDs.get(parentID);
-        for (int i : arr) {
-            if (i == childID) {
-                return true;
-            }
-        }
-        return false;
     }
 }
