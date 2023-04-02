@@ -34,6 +34,10 @@ public class DirectedGraph {
             visited = true;
         }
 
+        private void revVisit() {
+            visited = false;
+        }
+
     }
 
     // turns the map between Integer and String into a map between Integer and node with id String and empty children
@@ -59,20 +63,15 @@ public class DirectedGraph {
         lst.get(a).addChild(lst.get(b));
     }
 
-
-
     // get self and all children of id
     public TreeSet<String> getChildren(int id) {
 
-        for (int i : lst.keySet()) {
-            if (lst.get(i).marked()) {
-                lst.get(i).visited = false;
-            }
-        }
+        TreeMap<Integer, Node> unmarkedLst = lst;
         if (!ids.contains(id)) {
             return new TreeSet<>();
         }
         TreeSet<String> tr = getAllChildren(lst.get(id));
+        lst = unmarkedLst;
         return tr;
 
     }
@@ -89,7 +88,7 @@ public class DirectedGraph {
 
         String[] arr = n.id.split(",");
         for (String i : arr) {
-            if (!(i == "")){
+            if (!(i == "")) {
                 values.add(i);
             }
         }
