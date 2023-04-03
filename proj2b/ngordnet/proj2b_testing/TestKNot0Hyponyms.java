@@ -64,6 +64,18 @@ public class TestKNot0Hyponyms {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    public void testGroupingLargeFileK6() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("grouping");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 6);
+        String actual = studentHandler.handle(nq);
+        String expected = "[case, man, number, people, system, year]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
     //multiple words
     @Test
     public void testCommasLargeFileK9() {
@@ -86,6 +98,18 @@ public class TestKNot0Hyponyms {
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
         String actual = studentHandler.handle(nq);
         String expected = "[fibrillation]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testMultipleLargeFileK9() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("line", "transporter");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1920, 1980, 9);
+        String actual = studentHandler.handle(nq);
+        String expected = "[conveyor, transporter]";
         assertThat(actual).isEqualTo(expected);
     }
 }
