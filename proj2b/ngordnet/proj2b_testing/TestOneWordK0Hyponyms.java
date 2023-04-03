@@ -156,4 +156,25 @@ public class TestOneWordK0Hyponyms {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Test
+    public void testEventLargeFileK0() { // 2:25pm auto-grader test
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("event");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        System.out.println(actual);
+    }
+
+    @Test
+    public void testPartLargeFileK0() { // 2:25pm auto-grader test
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("part");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        System.out.println(actual);
+    }
 }

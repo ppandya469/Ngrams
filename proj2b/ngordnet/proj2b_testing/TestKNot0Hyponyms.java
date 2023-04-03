@@ -112,4 +112,28 @@ public class TestKNot0Hyponyms {
         String expected = "[conveyor, transporter]";
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void testMultipleLargeFileK4() {// 2:25pm auto-grader test
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("message");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 4);
+        String actual = studentHandler.handle(nq);
+        String expected = "[case, information, order, point]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testMultipleLargeFileK6() {// 2:25pm auto-grader test
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("substance");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 6);
+        String actual = studentHandler.handle(nq);
+        String expected = "[case, must, order, three, two, water]";
+        assertThat(actual).isEqualTo(expected);
+    }
 }
