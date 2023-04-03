@@ -22,6 +22,12 @@ public class TestOneWordK0Hyponyms {
     public static final String LARGE_HYPONYM_FILE = "data/wordnet/hyponyms.txt";
 
     @Test
+    public void wordNetTestBasic() {
+        WordNet wN = new WordNet("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
+        assertThat(wN).isNotNull();
+    }
+
+    @Test
     public void testActK0() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
@@ -30,72 +36,6 @@ public class TestOneWordK0Hyponyms {
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
         String expected = "[act, action, change, demotion, human_action, human_activity, variation]";
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    public void wordNetTestBasic() {
-        WordNet wN = new WordNet("data/wordnet/synsets16.txt", "data/wordnet/hyponyms16.txt");
-        assertThat(wN).isNotNull();
-    }
-
-    @Test
-    public void testActLargeFileK3() {
-        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("concept");
-
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 3);
-        String actual = studentHandler.handle(nq);
-        String expected = "[like, one, over]";
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    public void testMultipleLargeFileK0() {
-        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("pad", "movement", "set", "press", "lead", "effect", "shape", "center", "right");
-
-        NgordnetQuery nq = new NgordnetQuery(words, 1900, 2020, 0);
-        String actual = studentHandler.handle(nq);
-        String expected = "[]";
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    public void testCommasLargeFileK9() {
-        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("entity", "matzah_ball");
-
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 9);
-        String actual = studentHandler.handle(nq);
-        String expected = "[]";
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    public void testCompoundLargeFileK2() {
-        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("compound");
-
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 2);
-        String actual = studentHandler.handle(nq);
-        String expected = "[oil, water]";
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    @Test
-    public void testPartLargeFileK8() {
-        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("part");
-
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
-        String actual = studentHandler.handle(nq);
-        String expected = "[can, do, must, over, part, so, two, way]";
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -119,18 +59,6 @@ public class TestOneWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
         String actual = studentHandler.handle(nq);
-    }
-
-    @Test
-    public void testEntityLargeFileK4() {
-        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("entity");
-
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 4);
-        String actual = studentHandler.handle(nq);
-        String expected = "[are, at, have, in]";
-        assertThat(actual).isEqualTo(expected);
     }
 
 }

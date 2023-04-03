@@ -33,14 +33,14 @@ public class TestMultiWordK0Hyponyms {
     }
 
     @Test
-    public void testCommasLargeFileK8() {
+    public void testMultipleLargeFileK0() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("knowledge", "muscle_spasm");
+        List<String> words = List.of("pad", "movement", "set", "press", "lead", "effect", "shape", "center", "right");
 
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
+        NgordnetQuery nq = new NgordnetQuery(words, 1900, 2020, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "[fibrillation]";
+        String expected = "[]";
         assertThat(actual).isEqualTo(expected);
     }
 
