@@ -100,11 +100,11 @@ public class WordNet {
                 String maxWord = "";
                 for (String o : temp) {
                     double t = 0.0;
-                    List<Double> asdf = n.countHistory(o).data();
+                    List<Double> asdf = n.countHistory(o, startYear, endYear).data();
                     for (Double d : asdf) {
                         t += d;
                     }
-                    if (t >= max) {
+                    if (t >= max && t != 0.0) {
                         max = t;
                         maxWord = o;
                     }
