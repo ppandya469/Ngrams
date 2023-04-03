@@ -1,9 +1,7 @@
 package ngordnet.hyponyms;
 
 import edu.princeton.cs.algs4.In;
-
 import java.util.*;
-
 import ngordnet.ngrams.*;
 
 public class WordNet {
@@ -49,25 +47,19 @@ public class WordNet {
 
     // gets hyponyms of words
     public String hyponyms(List<String> words, int k, int startYear, int endYear, NGramMap n) {
-
         // gets last word in words adds all ids to wordsIDHolder
         TreeSet<Integer> wordsIDHolder = new TreeSet<>();
         String lastWord = "," + words.get(words.size() - 1) + ",";
-
         for (int j : wordIDs.keySet()) {
             if (wordIDs.get(j).contains(lastWord)) {
                 wordsIDHolder.add(j);
             }
         }
-
         // gets children of all ids in wordsIDHolder
         TreeSet<String> temp = new TreeSet<>();
         for (int j : wordsIDHolder) {
             temp.addAll(synsets.getChildren(j, true));
         }
-        //
-
-
         // removes hyponyms that are not also hyponyms of all other words
         TreeSet<Integer> parentIDHolder = new TreeSet<>();
         if (words.size() > 1) {
@@ -76,7 +68,6 @@ public class WordNet {
                     parentIDHolder.add(p);
                 }
             }
-
             ArrayList<String> temp1 = new ArrayList<>();
             for (int w : parentIDHolder) {
                 temp1.addAll(synsets.getChildren(w, false));
@@ -91,7 +82,6 @@ public class WordNet {
                 }
             }
         }
-
         // k != 0 case
         ArrayList<String> newHolder = new ArrayList<>();
         if (k > 0) {
@@ -116,7 +106,7 @@ public class WordNet {
             }
         } else { //if k == 0
             for (String o : temp) {
-                if (!(o == "")) {
+                if (!(o.equals(""))) {
                     newHolder.add(o);
                 }
             }
