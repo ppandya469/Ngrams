@@ -102,4 +102,16 @@ public class TestMultiWordK0Hyponyms {
         String expected = "[Asamiya, Assamese]";
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void test31Attempt11() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("content", "golden_handshake");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[golden_handshake]";
+        assertThat(actual).isEqualTo(expected);
+    }
 }
