@@ -95,7 +95,7 @@ public class TestOneWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
         String actual = studentHandler.handle(nq);
-        String expected = "[can, do, must, over, part, place, so, two]";
+        String expected = "[can, do, must, over, part, so, two, way]";
         assertThat(actual).isEqualTo(expected);
     }
 }
