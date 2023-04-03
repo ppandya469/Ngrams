@@ -76,6 +76,17 @@ public class TestOneWordK0Hyponyms {
     }
 
     @Test
+    public void testK8Granular() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("knowledge");
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
+        String actual = studentHandler.handle(nq);
+        String expected = "[like, one, over, part, time, use, will, work]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
     public void testCommasLargeFileK9() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
                 LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
