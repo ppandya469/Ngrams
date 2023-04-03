@@ -10,7 +10,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 /** Tests the case where the list of words is length greater than 1, but k is still zero. */
 public class TestMultiWordK0Hyponyms {
-    // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
     public static final String WORDS_FILE = "data/ngrams/very_short.csv";
     public static final String LARGE_WORDS_FILE = "data/ngrams/top_14377_words.csv";
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
