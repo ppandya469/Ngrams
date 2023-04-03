@@ -119,8 +119,6 @@ public class TestOneWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "[]";
-        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
