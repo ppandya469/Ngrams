@@ -12,6 +12,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class TestMultiWordK0Hyponyms {
     // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
     public static final String WORDS_FILE = "data/ngrams/very_short.csv";
+    public static final String LARGE_WORDS_FILE = "data/ngrams/top_14377_words.csv";
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
     public static final String SMALL_HYPONYM_FILE = "data/wordnet/hyponyms16.txt";
@@ -32,9 +33,21 @@ public class TestMultiWordK0Hyponyms {
     }
 
     @Test
+    public void testCommasLargeFileK8() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("knowledge", "muscle_spasm");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 8);
+        String actual = studentHandler.handle(nq);
+        String expected = "[fibrillation]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
     public void test31Attempt3() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("matter", "bearskin");
 
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
@@ -46,7 +59,7 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void test32Attempt3() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("order", "suborder_Anisoptera");
 
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
