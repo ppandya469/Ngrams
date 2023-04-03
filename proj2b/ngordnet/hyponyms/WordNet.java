@@ -63,7 +63,7 @@ public class WordNet {
         // gets children of all ids in wordsIDHolder
         TreeSet<String> temp = new TreeSet<>();
         for (int j : wordsIDHolder) {
-            temp.addAll(synsets.getChildren(j));
+            temp.addAll(synsets.getChildren(j, true));
         }
         //
 
@@ -79,7 +79,7 @@ public class WordNet {
 
             ArrayList<String> temp1 = new ArrayList<>();
             for (int w : parentIDHolder) {
-                temp1.addAll(synsets.getChildren(w));
+                temp1.addAll(synsets.getChildren(w, false));
             }
             ArrayList<String> holderCopy = new ArrayList<>();
             for (String q : temp) {

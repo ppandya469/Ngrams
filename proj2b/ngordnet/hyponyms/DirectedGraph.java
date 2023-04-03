@@ -12,6 +12,7 @@ public class DirectedGraph {
     private TreeMap<Integer, Node> lst;
     private TreeMap<Integer, ArrayList> pcIDs;
     private Set<Integer> ids;
+    private TreeMap<Integer, Node> unmarkedLst;
     private class Node {
 
         private String id;
@@ -34,10 +35,6 @@ public class DirectedGraph {
             visited = true;
         }
 
-        private void revVisit() {
-            visited = false;
-        }
-
     }
 
     // turns the map between Integer and String into a map between Integer and node with id String and empty children
@@ -45,8 +42,10 @@ public class DirectedGraph {
     public DirectedGraph(TreeMap<Integer, String> i, TreeMap<Integer, ArrayList> j) {
 
         lst = new TreeMap<>();
+        unmarkedLst = new TreeMap<>();
         for (int id : i.keySet()) {
             lst.put(id, new Node(i.get(id)));
+            unmarkedLst.put(id, new Node(i.get(id)));
         }
         ids = i.keySet();
 
@@ -61,19 +60,25 @@ public class DirectedGraph {
             return;
         }
         lst.get(a).addChild(lst.get(b));
+        unmarkedLst.get(a).addChild(unmarkedLst.get(b));
     }
 
     // get self and all children of id
-    public TreeSet<String> getChildren(int id) {
+    public TreeSet<String> getChildren(int id, boolean childList) {
 
-        TreeMap<Integer, Node> unmarkedLst = (TreeMap<Integer, Node>) lst.clone();
+
         if (!ids.contains(id)) {
             return new TreeSet<>();
         }
-        TreeSet<String> tr = getAllChildren(lst.get(id));
-        lst = unmarkedLst;
-        return tr;
 
+        TreeSet<String> tr;
+        if (childList) { // use lst
+            tr = getAllChildren(lst.get(id));
+        }
+        else {
+            tr = getAllChildren(unmarkedLst.get(id));
+        }
+        return tr;
     }
 
     // recursive method, prevents naked recursion. Performs a DFS and adds all children to the list.
