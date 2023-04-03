@@ -13,8 +13,7 @@ public class AutograderBuddy {
             String synsetFile, String hyponymFile) {
 
         NGramMap ngm = new NGramMap(wordFile, countFile);
-        WordNet wN = new WordNet(synsetFile, hyponymFile);
 
-        return new HyponymsHandler(wN, ngm);
+        return new HyponymsHandler(synsetFile, hyponymFile, ngm);
     }
 }

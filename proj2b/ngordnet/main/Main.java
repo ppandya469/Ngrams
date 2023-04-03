@@ -16,11 +16,10 @@ public class Main {
         String hyponymFile = "./data/wordnet/hyponyms.txt";
 
         NGramMap ngm = new NGramMap(wordFile, countFile);
-        WordNet wN = new WordNet(synsetFile, hyponymFile);
 
         hns.startUp();
         hns.register("history", new HistoryHandler(ngm));
         hns.register("historytext", new HistoryTextHandler(ngm));
-        hns.register("hyponyms", new HyponymsHandler(wN, ngm));
+        hns.register("hyponyms", new HyponymsHandler(synsetFile, hyponymFile, ngm));
     }
 }
