@@ -129,7 +129,7 @@ public class TestOneWordK0Hyponyms {
                 LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("entity");
 
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 4);
         String actual = studentHandler.handle(nq);
         String expected = "[are, at, have, in]";
         assertThat(actual).isEqualTo(expected);
