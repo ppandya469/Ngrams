@@ -67,4 +67,28 @@ public class TestMultiWordK0Hyponyms {
         String expected = "[Anisoptera, suborder_Anisoptera]";
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void test31Attempt7() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("agent", "impresario");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[Barnum, Buffalo_Bill, Buffalo_Bill_Cody, Charles_Ringling, Cody, D'Oyly_Carte, Diaghilev, Hurok, P._T._Barnum, Phineas_Taylor_Barnum, Richard_D'Oyly_Carte, Ringling, Sergei_Diaghilev, Sergei_Pavlovich_Diaghilev, Sol_Hurok, Solomon_Hurok, William_F._Cody, William_Frederick_Cody, exhibitioner, exhibitor, impresario, organ-grinder, porn_merchant, pornographer, promoter, shower, showman]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void test32Attempt7() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("being", "Black_Hawk");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[Black_Hawk, Makataimeshekiakiak]";
+        assertThat(actual).isEqualTo(expected);
+    }
 }
