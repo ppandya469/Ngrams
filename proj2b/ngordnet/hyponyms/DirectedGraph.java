@@ -1,11 +1,6 @@
 package ngordnet.hyponyms;
 
-//import org.checkerframework.checker.units.qual.A;
-//import org.reflections.vfs.Vfs;
-
 import java.util.*;
-//import java.util.HashSet;
-
 
 public class DirectedGraph {
 
@@ -74,8 +69,7 @@ public class DirectedGraph {
         TreeSet<String> tr;
         if (childList) { // use lst
             tr = getAllChildren(lst.get(id));
-        }
-        else {
+        } else {
             tr = getAllChildren(unmarkedLst.get(id));
         }
         return tr;
@@ -93,7 +87,7 @@ public class DirectedGraph {
 
         String[] arr = n.id.split(",");
         for (String i : arr) {
-            if (!(i == "")) {
+            if (!(i.equals(""))) {
                 values.add(i);
             }
         }
