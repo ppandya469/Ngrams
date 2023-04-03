@@ -98,4 +98,41 @@ public class TestOneWordK0Hyponyms {
         String expected = "[can, do, must, over, part, so, two, way]";
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void testGroupLargeFileK0() { // should work but fails auto-grader
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("group");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        //String expected = "[]";
+        //assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testBeingLargeFileK0() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("being");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void testEntityLargeFileK4() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                LARGE_WORDS_FILE, LARGE_TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("entity");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[are, at, have, in]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }
