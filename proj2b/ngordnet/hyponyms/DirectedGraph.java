@@ -87,8 +87,6 @@ public class DirectedGraph {
         TreeSet<String> values = new TreeSet<>();
         if (n.marked()) {
             return values;
-        } else {
-            n.visit();
         }
 
         String[] arr = n.id.split(",");
@@ -101,6 +99,7 @@ public class DirectedGraph {
             return values;
         } else {
             for (Node c : n.children) {
+                n.visit();
                 values.addAll(getAllChildren(c));
             }
             return values;
