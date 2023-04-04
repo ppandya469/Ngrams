@@ -29,6 +29,14 @@ public class TestMultiWordK0Hyponyms {
         String actual = studentHandler.handle(nq);
         String expected = "[alteration, change, increase, jump, leap, modification, saltation, transition]";
         assertThat(actual).isEqualTo(expected);
+        NgordnetQueryHandler studentHandler2 = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        List<String> words2 = List.of("occurrence", "change");
+
+        NgordnetQuery nq2 = new NgordnetQuery(words2, 0, 0, 0);
+        String actual2 = studentHandler.handle(nq2);
+        String expected2 = "[alteration, change, increase, jump, leap, modification, saltation, transition]";
+        assertThat(actual2).isEqualTo(expected2);
     }
 
     @Test

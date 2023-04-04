@@ -14,20 +14,15 @@ import ngordnet.ngrams.NGramMap;
 public class HyponymsHandler extends NgordnetQueryHandler {
 
     private NGramMap ng;
-    private String sFile;
-    private String hFile;
+    private WordNet wn;
 
     public HyponymsHandler(String s, String h, NGramMap n) {
         ng = n;
-        sFile = s;
-        hFile = h;
+        wn = new WordNet(s, h);
     }
 
     @Override
     public String handle(NgordnetQuery q) {
-        WordNet wN = new WordNet(sFile, hFile);
-        return wN.hyponyms(q.words(), q.k(), q.startYear(), q.endYear(), ng);
-        // what I had before was: there was a wordnet as an instance variable
-        // and it called hyponyms on that every time
+        return wn.hyponyms(q.words(), q.k(), q.startYear(), q.endYear(), ng);
     }
 }

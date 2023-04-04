@@ -8,11 +8,11 @@ public class DirectedGraph {
     private TreeMap<Integer, ArrayList> pcIDs;
     private Set<Integer> ids;
     private TreeMap<Integer, Node> unmarkedLst;
+    private HashSet<Node> marked;
     private class Node {
 
         private String id;
         private ArrayList<Node> children = new ArrayList<>();
-        private boolean visited = false;
 
         private Node(String i) {
             id = i;
@@ -20,18 +20,6 @@ public class DirectedGraph {
 
         private void addChild(Node n) {
             children.add(n);
-        }
-
-        private boolean marked() {
-            return visited;
-        }
-
-        private void visit() {
-            visited = true;
-        }
-
-        private void revVisit() {
-            visited = false;
         }
 
     }
@@ -42,6 +30,7 @@ public class DirectedGraph {
 
         lst = new TreeMap<>();
         unmarkedLst = new TreeMap<>();
+        marked = new HashSet<>();
         for (int id : i.keySet()) {
             lst.put(id, new Node(i.get(id)));
             unmarkedLst.put(id, new Node(i.get(id)));
@@ -73,11 +62,10 @@ public class DirectedGraph {
         TreeSet<String> tr;
         if (childList) { // use lst
             tr = getAllChildren(lst.get(id));
-            clearMarked(unmarkedLst);
         } else {
             tr = getAllChildren(unmarkedLst.get(id));
-            clearMarked(lst);
         }
+        marked = new HashSet<>();
         return tr;
     }
 
@@ -85,7 +73,7 @@ public class DirectedGraph {
     private TreeSet<String> getAllChildren(Node n) {
 
         TreeSet<String> values = new TreeSet<>();
-        if (n.marked()) {
+        if (marked.contains(n)) {
             return values;
         }
 
@@ -99,18 +87,12 @@ public class DirectedGraph {
             return values;
         } else {
             for (Node c : n.children) {
-                n.visit();
+                marked.add(n);
                 values.addAll(getAllChildren(c));
             }
             return values;
         }
 
-    }
-
-    private void clearMarked(TreeMap<Integer, Node> l) {
-        for (int i : l.keySet()) {
-            l.get(i).revVisit();
-        }
     }
 
 }
