@@ -112,15 +112,6 @@ public class WordNet {
             }
         }
         Collections.sort(newHolder);
-        if (newHolder.isEmpty()) {
-            return "[]";
-        } else {
-            String tr = "[";
-            for (int i = 0; i < newHolder.size() - 1; i++) {
-                tr += (newHolder.get(i) + ", ");
-            }
-            tr += (newHolder.get(newHolder.size() - 1));
-            return tr + "]";
-        }
+        return newHolder.toString();
     }
 }
